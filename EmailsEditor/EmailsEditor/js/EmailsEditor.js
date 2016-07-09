@@ -1,24 +1,48 @@
 ﻿var app = angular.module('EmailModule', [])
 
-app.directive('emailsEditor', function() {
+app.directive('emailsEditor', function () {
+	var emails = [
+		{ id: 0, email: 'sidorov@mail.ru' },
+		{ id: 1, email: 'popov@mail.ru' },
+	
+	];
+
+	var delEmail = function (emails, email) {
+		emails.splice(emails.indexOf(email), 1);
+	};
+
+	var keypress = function (val, a, s) {
+		//TODO: Как здесь получить emails ???
+		debugger;
+		if (event.keyCode == 13 || (val != null && val.indexOf(',') != -1)) {
+			scope.emails.push({
+				id: scope.emails[scope.emails.length - 1].id + 1,
+				email: val.substring(0, val.length - 1)
+			});
+			newEmail = "";
+		}
+	};
+
 	return {
-		// обязательно, для поддержки работы через элемент
 		restrict: 'E',
 
 		template: 
-		'<div id="emails-editor">' + 
-		'<ul class="email">' +
-		
-			'<li>sidorov@mail.ru<span class="remove" onclick="alert(-1)">x</span></li>' +
-			'<li>popov@mail.ru<span class="remove" onclick="alert(-1)">x</span></li>' +
-				
-		'</ul>' +
-		'<textarea ng-keydown="keypress" wrap="off" ng-model="newEmail" row="1" class="emailInput" placeholder="add more people..."></textarea>' +
-		'</div>',
-		replace: true,
+
+'<div id="emails-editor">' + 
+'<ul class="email">' +
+	"<li ng-repeat='email in emails'>{{email.email}}<span class='remove' ng-click='delEmail(emails, email)'>x</span></li>" +
+'</ul>' +
+'<textarea ng-keypress="keypress(newEmail, scope, $scope)" wrap="off" ng-model="newEmail" row="1" class="emailInput" placeholder="add more people..."></textarea>' +
+'</div>',
+
+		replace: true,//http://stackoverflow.com/questions/15285635/how-to-use-replace-of-directive-definition
 
 		// наблюдение и манипулирование DOM
-		link: function($scope, element, attrs) {
+		link: function (scope, element, attrs) {
+			scope.emails = emails;
+			scope.delEmail = delEmail;
+			scope.keypress = keypress;
+
 			/*
 			$scope.keypress = function ($event){
 				 console.log("=== key down pressed === ", $event);
@@ -27,19 +51,24 @@ app.directive('emailsEditor', function() {
 				 }
 			};
 */
-			$scope.$watch("newEmail", function (newVal, oldVal) {
+
+			scope.$watch("newEmail", function (newVal, oldVal, scope, q,w,e,r,t) {
 			//todo
-			//enter
-			//http://stackoverflow.com/questions/32996621/scope-watch-is-not-triggered-after-enter-key-press-nor-location-path-is-worki
-				if (newVal != null && newVal.indexOf(',') != -1){
-					var email = '<li>' + newVal.substring(0,newVal.length-1) +
-						'<span class="remove" onclick="alert(-1)">x</span></li>';
-					var container = $('#emails-editor');
-					$('#emails-editor').find('ul.email').append(email);
-					$scope.newEmail = "";
+				//enter
+				//debugger;
+				//$event.keyCode == 13
+				//http://stackoverflow.com/questions/32996621/scope-watch-is-not-triggered-after-enter-key-press-nor-location-path-is-worki
+/*
+				if (newVal != null && newVal.indexOf(',') != -1) {
+					scope.emails.push({
+						id: scope.emails[scope.emails.length - 1].id + 1,
+						email: newVal.substring(0, newVal.length - 1)
+					});
+					scope.newEmail = "";
 				}
-				
+	*/			
 			});
+
 		}
 		
 	}
