@@ -59,6 +59,7 @@
 	display: inline-block;
 }
 
+
 .email > li {
 	background-color: #D8E8FF;
     padding: 5px 10px 5px 10px;
@@ -67,6 +68,12 @@
     font: -webkit-small-control;
 	margin: 0px 0px 2px 5px;
 	display: inline-block;
+}
+
+.email span.badEmail {
+    border: dotted;
+    border-color: red;
+    border-width: 0 0 1px 0;
 }
 
 .remove {

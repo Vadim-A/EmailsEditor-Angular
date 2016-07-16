@@ -1,74 +1,94 @@
 ﻿var app = angular.module('EmailModule', [])
 
 app.directive('emailsEditor', function () {
-	var emails = [
-		{ id: 0, email: 'sidorov@mail.ru' },
-		{ id: 1, email: 'popov@mail.ru' },
-	
-	];
 
-	var delEmail = function (emails, email) {
-		emails.splice(emails.indexOf(email), 1);
+	var _emails = [
+		{ id: 1, email: 'sidorov@mail.ru' },
+		{ id: 2, email: 'popov@mail.ru' }
+	];
+	
+	function _addEmail(email) {
+		_emails.push({
+			id: _emails[_emails.length - 1].id + 1,
+			email: email
+		});
 	};
 
-	var keypress = function (val, a, s) {
-		//TODO: Как здесь получить emails ???
-		debugger;
-		if (event.keyCode == 13 || (val != null && val.indexOf(',') != -1)) {
-			scope.emails.push({
-				id: scope.emails[scope.emails.length - 1].id + 1,
-				email: val.substring(0, val.length - 1)
-			});
-			newEmail = "";
+	function _delEmail(email) {
+		_emails.splice(_emails.indexOf(email), 1);
+	}
+
+	function _validateEmail(email) {
+		var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		return re.test(email);
+	}
+
+	function delEmail() {
+		_delEmail(this.email);
+	};
+
+	function onEmailEdit() {
+		//NOTE: Через ng-keypress и event нельзя определить новое и старое значение.
+		//А так же сложно определить сочетание клавишь (будет ли event.keyCode на другой раскладке таким же?)
+		//if (event.ctrlKey && (event.keyCode == 86 || event.keyCode == 87)) {
+		//}
+		
+		if (this.newEmail != null && this.newEmail.length > 0 && (event.keyCode == 13 || event.key == ',')) {
+			_addEmail(this.newEmail);
+			this.newEmail = "";
+			event.preventDefault();
 		}
 	};
+
+	function onEmailPaste() {
+		this.emailPaste = true;
+	}
+
+	function getBadEmailClass() {
+		return _validateEmail(this.email.email) ? '' : 'badEmail';
+	};
+	
 
 	return {
 		restrict: 'E',
 
 		template: 
-
 '<div id="emails-editor">' + 
 '<ul class="email">' +
-	"<li ng-repeat='email in emails'>{{email.email}}<span class='remove' ng-click='delEmail(emails, email)'>x</span></li>" +
+	'<li ng-repeat="email in emails"><span class={{getBadEmailClass()}}>' + //NOTE: ng-class не применяет стили
+		'{{email.email}}</span><span class="remove" ng-click="delEmail()">x</span></li>' +
 '</ul>' +
-'<textarea ng-keypress="keypress(newEmail, scope, $scope)" wrap="off" ng-model="newEmail" row="1" class="emailInput" placeholder="add more people..."></textarea>' +
+'<textarea ng-paste="onEmailPaste()" ng-keypress="onEmailEdit()" wrap="off" ng-model="newEmail" row="1" class="emailInput" placeholder="add more people..."></textarea>' +
+//'<textarea ng-paste="expression" ng-keydown="onEmailEdit()" wrap="off" ng-model="newEmail" row="1" class="emailInput" placeholder="add more people..."></textarea>' +
 '</div>',
 
 		replace: true,//http://stackoverflow.com/questions/15285635/how-to-use-replace-of-directive-definition
 
-		// наблюдение и манипулирование DOM
 		link: function (scope, element, attrs) {
-			scope.emails = emails;
-			scope.delEmail = delEmail;
-			scope.keypress = keypress;
+			scope.emails = _emails; //список почтовых ящиков
+			scope.getBadEmailClass = getBadEmailClass; // подчеркивание почтового ящика, не соответствующего шаблону
+			scope.delEmail = delEmail; // удаление блока почтового ящика из списка
+			scope.onEmailEdit = onEmailEdit; //при редактировании поля с почтовым ящиком необходмо сформировать блок на нажатие ',' и 'enter'
+			
 
-			/*
-			$scope.keypress = function ($event){
-				 console.log("=== key down pressed === ", $event);
-				 if ($event.which == 13){
-					 //location.path('/search/');
-				 }
-			};
-*/
-
-			scope.$watch("newEmail", function (newVal, oldVal, scope, q,w,e,r,t) {
-			//todo
-				//enter
-				//debugger;
-				//$event.keyCode == 13
-				//http://stackoverflow.com/questions/32996621/scope-watch-is-not-triggered-after-enter-key-press-nor-location-path-is-worki
-/*
-				if (newVal != null && newVal.indexOf(',') != -1) {
-					scope.emails.push({
-						id: scope.emails[scope.emails.length - 1].id + 1,
-						email: newVal.substring(0, newVal.length - 1)
+			//формирование блоков почтовых ящиков при ctrl+v обрабатывается отдельно
+			scope.onEmailPaste = onEmailPaste;
+			scope.emailPaste = false;
+			scope.$watch("newEmail", function (newVal, oldVal, scope) {
+				if (scope.emailPaste) {
+					newVal = newVal.split('\n').join(',');
+					newVal = newVal.split('\t').join(',');
+					newVal = newVal.split(' ').join(',');
+					newVal.split(',').forEach(function (element, index, array) {
+						if (element.length > 0) {
+							_addEmail(element);
+						}
 					});
 					scope.newEmail = "";
+					scope.emailPaste = false;
 				}
-	*/			
 			});
-
+		
 		}
 		
 	}
