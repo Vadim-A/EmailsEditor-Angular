@@ -40,6 +40,13 @@ app.directive('emailsEditor', function () {
 		}
 	};
 
+	function onBlur() {
+		if (this.newEmail != null && this.newEmail.length > 0) {
+			_addEmail(this.newEmail);
+			this.newEmail = "";
+		}
+	};
+
 	function onEmailPaste() {
 		this.emailPaste = true;
 	}
@@ -58,7 +65,7 @@ app.directive('emailsEditor', function () {
 	'<li ng-repeat="email in emails"><span class={{getBadEmailClass()}}>' + //NOTE: ng-class не применяет стили
 		'{{email.email}}</span><span class="remove" ng-click="delEmail()">x</span></li>' +
 '</ul>' +
-'<textarea ng-paste="onEmailPaste()" ng-keypress="onEmailEdit()" wrap="off" ng-model="newEmail" row="1" class="emailInput" placeholder="add more people..."></textarea>' +
+'<textarea ng-blur="onBlur()" ng-paste="onEmailPaste()" ng-keypress="onEmailEdit()" wrap="off" ng-model="newEmail" row="1" class="emailInput" placeholder="add more people..."></textarea>' +
 //'<textarea ng-paste="expression" ng-keydown="onEmailEdit()" wrap="off" ng-model="newEmail" row="1" class="emailInput" placeholder="add more people..."></textarea>' +
 '</div>',
 
@@ -69,6 +76,7 @@ app.directive('emailsEditor', function () {
 			scope.getBadEmailClass = getBadEmailClass; // подчеркивание почтового ящика, не соответствующего шаблону
 			scope.delEmail = delEmail; // удаление блока почтового ящика из списка
 			scope.onEmailEdit = onEmailEdit; //при редактировании поля с почтовым ящиком необходмо сформировать блок на нажатие ',' и 'enter'
+			scope.onBlur = onBlur; //действие при потере фокуса 
 			
 
 			//формирование блоков почтовых ящиков при ctrl+v обрабатывается отдельно
