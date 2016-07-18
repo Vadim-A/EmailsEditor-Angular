@@ -97,35 +97,28 @@ app.directive('emailsEditor', function () {
 				}
 			});
 		
-		}
+		},
+
+		controller: 'controller'
+		//controller: function ($scope, $element, $attrs, $transclude) {
+
+		//}           
+
 		
 	}
 })
 
-app.controller("EmailController", ["$scope", function($scope) {
+app.controller("controller", function ($scope) {
 
-	/*
-	//"controller" реализует интерфейс:  (???)
-	//interface IController { 
-	//	addEmails(emails:string[]):void 
-	//	getEmails():string[] 
-	} 
-	$scope.addEmails = function (emails) {
-		throw new Error("Not realized");
-	}
-	$scope.getEmails = function () {
-		throw new Error("Not realized");
-	}
-	*/
 	$scope.addEmails = function () {
 		var email = "email" + Math.round(Math.random()*1000) + "@mail.ru";
 	}
 	
 	$scope.getEmailsCount = function () {
-		return 42;
+		alert(this.emails.length);
 	}
 	
-}])
+})
 
 
 /*

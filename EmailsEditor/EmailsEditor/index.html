@@ -13,10 +13,10 @@
 	
 	<div id="test">
 		<!-- ********************* -->
-		<div ng-app="EmailModule" ng-controller="EmailController">
+		<div ng-app="EmailModule">
 			<div id="emailContainer">
 				<p>Share "Board name" with others</p>
-				<emails-editor></emails-editor>
+				<emails-editor ctrl="controller"></emails-editor>
 			</div>
 			<div id="ButtonContainer">
 				<button ng-click="addEmails()" class="myPrettyButton">Add random email</button>
