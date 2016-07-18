@@ -77,6 +77,8 @@ app.directive('emailsEditor', function () {
 			scope.delEmail = delEmail; // удаление блока почтового ящика из списка
 			scope.onEmailEdit = onEmailEdit; //при редактировании поля с почтовым ящиком необходмо сформировать блок на нажатие ',' и 'enter'
 			scope.onBlur = onBlur; //действие при потере фокуса 
+
+			scope._addEmail = _addEmail; //for controller
 			
 
 			//формирование блоков почтовых ящиков при ctrl+v обрабатывается отдельно
@@ -99,19 +101,22 @@ app.directive('emailsEditor', function () {
 		
 		},
 
-		controller: 'controller'
-		//controller: function ($scope, $element, $attrs, $transclude) {
-
-		//}           
-
+		
+		//https://toddmotto.com/dynamic-controllers-in-directives-with-the-undocumented-name-property/
+		name: 'ctrl', //controller name...
+		controller: '@' //...from attribute
 		
 	}
 })
 
 app.controller("controller", function ($scope) {
 
+
 	$scope.addEmails = function () {
-		var email = "email" + Math.round(Math.random()*1000) + "@mail.ru";
+		//while (this.emails.indexOf(email) != -1) {
+			var email = "email" + Math.round(Math.random() * 1000) + "@mail.ru";
+		//};
+			this._addEmail(email);
 	}
 	
 	$scope.getEmailsCount = function () {
