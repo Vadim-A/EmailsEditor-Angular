@@ -15,7 +15,7 @@ app.directive('emailsEditor', function () {
 		name: 'ctrl', //controller name...
 		controller: '@', //...from attribute
 
-		template: //this content will bi in html instead "<emails-editor></emails-editor>"
+		template: //this content will be in html instead "<emails-editor></emails-editor>"
 '<div id="emails-editor">' + 
 '<ul class="email">' +
 	'<li ng-repeat="email in _emails"><span class={{getBadEmailClass()}}>' + //NOTE: using "ng-class" styles does not apply. What wrong?
