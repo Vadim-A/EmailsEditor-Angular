@@ -5,7 +5,7 @@
 var app = angular.module('EmailModule', [])
 
 app.directive('emailsEditor', function () {
-	//There is only template and functions whitch strongly connected with template in the directive
+	//There are only template and functions whitch strongly connected with template in the directive
 
 	return {
 		restrict: 'E', //can be used only like element "<emails-editor></emails-editor>"
@@ -21,7 +21,8 @@ app.directive('emailsEditor', function () {
 	'<li ng-repeat="email in _emails"><span class={{getBadEmailClass()}}>' + //NOTE: using "ng-class" styles does not apply. What wrong?
 		'{{email}}</span><span class="remove" ng-click="delEmail(email)">x</span></li>' +
 '</ul>' +
-'<textarea ng-blur="onBlur()" ng-paste="onPaste()" ng-keypress="onEmailEdit()" wrap="off" ng-model="newEmail" row="1" class="emailInput" placeholder="add more people..."></textarea>' +
+//'<textarea ng-blur="onBlur()" ng-paste="onPaste()" ng-keypress="onEmailEdit()" wrap="off" ng-model="newEmail" row="1" class="emailInput" placeholder="add more people..."></textarea>' +
+'<input type="text" ng-paste="onPaste()" ng-keypress="onEmailEdit()" ng-blur="onBlur()" ng-model="newEmail" placeholder="add more people ..." class="emailInput2">' +
 '</div>',
 
 		link: function (scope, element, attrs) {
@@ -32,10 +33,8 @@ app.directive('emailsEditor', function () {
 
 			scope.onEmailEdit = function () {
 				//Using in "ng-keypress" event. 
-				//Does not used to catch "ctrl+v" event because it is difficult to determine
-				//keyCode for "V" key keeping in mind the multilanguage OS.
+				//Does not used to catch "ctrl+v" event because it is difficult to determine keyCode for "V", key keeping in mind the multilanguage OS.
 				//For "ctrl+v" used "ng-paste" event
-				//TODO: check event for "ctrl+v" event
 				if (event.keyCode == 13 || event.key == ',') { //"Enter" or "Comma"
 					this.addEmail(this.newEmail);
 					this.newEmail = "";
@@ -50,8 +49,7 @@ app.directive('emailsEditor', function () {
 					this.newEmail = "";
 				}
 			};
-			
-			
+
 			scope.emailPaste = false;
 			scope.onPaste = function (newEmail) {
 				//"ng-paste" event does not alloy to get paste values, but scope.$watch does.
@@ -76,7 +74,7 @@ app.directive('emailsEditor', function () {
 
 app.controller("controller", function ($scope) {
 
-	$scope._emails = ['sidorov@mail.ru', 'popov@mail.ru'];
+	$scope._emails = ['sidorov@mail.ru'];
 	
 	$scope._validateEmail = function (email) {
 		var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

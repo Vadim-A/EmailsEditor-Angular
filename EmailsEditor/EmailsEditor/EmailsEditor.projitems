@@ -15,6 +15,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)css\style.css" />
+    <Content Include="$(MSBuildThisFileDirectory)fonts\MyriadProItalic\MyriadProItalic.eot" />
+    <Content Include="$(MSBuildThisFileDirectory)fonts\MyriadProItalic\MyriadProItalic.otf" />
+    <Content Include="$(MSBuildThisFileDirectory)fonts\MyriadProItalic\MyriadProItalic.ttf" />
+    <Content Include="$(MSBuildThisFileDirectory)fonts\MyriadProItalic\MyriadProItalic.woff" />
+    <Content Include="$(MSBuildThisFileDirectory)fonts\MyriadPro\MyriadProRegular\MyriadProRegular.eot" />
+    <Content Include="$(MSBuildThisFileDirectory)fonts\MyriadPro\MyriadProRegular\MyriadProRegular.otf" />
+    <Content Include="$(MSBuildThisFileDirectory)fonts\MyriadPro\MyriadProRegular\MyriadProRegular.ttf" />
+    <Content Include="$(MSBuildThisFileDirectory)fonts\MyriadPro\MyriadProRegular\MyriadProRegular.woff" />
     <Content Include="$(MSBuildThisFileDirectory)img\etalon.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)index.html" />
   </ItemGroup>

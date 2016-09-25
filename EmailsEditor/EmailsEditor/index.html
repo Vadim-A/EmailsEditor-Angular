@@ -4,7 +4,6 @@
 	<meta charset="utf-8">
 	<title>Тестовое задание</title>
 	<link href="css/style.css" rel="stylesheet">
-	<script src="js/lib/jquery-1.12.2.js"></script>
 	<script src="js/lib/angular.js"></script>
 	<script src="js/EmailsEditor.js"></script>
 </head>
@@ -19,8 +18,8 @@
 				<emails-editor ctrl="controller"></emails-editor>
 			</div>
 			<div id="ButtonContainer">
-				<button ng-click="addEmails()" class="myPrettyButton">Add random email</button>
-				<button ng-click="getEmailsCount()" class="myPrettyButton">Get emails count</button>
+				<button ng-click="addEmails()" class="myPrettyButton" id="addEmail">Add email</button>
+				<button ng-click="getEmailsCount()" class="myPrettyButton" id="getEmailCount">Get emails count</button>
 				<div>
 				</div>
 				<!-- ********************* -->
@@ -32,23 +31,22 @@
 		<img src="img/etalon.jpg" title="Пример" />
 	</div>
 
+	<br>
+	<br>
+	<br>
+	<ul>
+		<li>http://jsfiddle.net/XtUdT/
+		<li>https://habrahabr.ru/post/179755/
+		<li>https://habrahabr.ru/post/180365/
+		<li>https://habrahabr.ru/post/200620/
+		<li>http://monsterlessons.com/project/categories/angularjs?page=4
+		<li>http://stackoverflow.com/questions/17470790/how-to-use-a-keypress-event-in-angularjs
+	</ul>
+
 </body>
 </html>
 
 
-<br>
-<br>
 
-
-
-<br>
-<ul>
-	<li>http://jsfiddle.net/XtUdT/
-	<li>https://habrahabr.ru/post/179755/
-	<li>https://habrahabr.ru/post/180365/
-	<li>https://habrahabr.ru/post/200620/
-	<li>http://monsterlessons.com/project/categories/angularjs?page=4
-	<li>http://stackoverflow.com/questions/17470790/how-to-use-a-keypress-event-in-angularjs
-</ul>
 
 

@@ -1,3 +1,24 @@
+/* font-family: "MyriadProRegular"; */
+@font-face {
+    font-family: "MyriadProRegular";
+    src: url("../fonts/MyriadPro/MyriadProRegular/MyriadProRegular.eot");
+    src: url("../fonts/MyriadPro/MyriadProRegular/MyriadProRegular.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/MyriadPro/MyriadProRegular/MyriadProRegular.woff") format("woff"),
+    url("../fonts/MyriadPro/MyriadProRegular/MyriadProRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+/* font-family: "MyriadProItalic"; */
+@font-face {
+    font-family: "MyriadProItalic";
+    src: url("../fonts/MyriadProItalic/MyriadProItalic.eot");
+    src: url("../fonts/MyriadProItalic/MyriadProItalic.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/MyriadProItalic/MyriadProItalic.woff") format("woff"),
+    url("../fonts/MyriadProItalic/MyriadProItalic.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
 #test {
 	width: 500px;
 	height: 320px;
@@ -5,7 +26,8 @@
 
 #emailContainer {
 	background-color: #F5F5F5;
-	padding: 30px 40px 30px 40px;
+	padding: 35px 40px 30px 40px;
+	color: #373737;
 }
 #ButtonContainer {
 	background-color: #FFFFFF;
@@ -13,23 +35,26 @@
 }
 
 #emailContainer p{
-	margin: 0px 0px 30px 0px;
+	margin: 0px 0px 35px 0px;
 	font-size: 20px;
-	font-family: sans-serif;
+	font-family: MyriadProRegular;
+	letter-spacing: -0.1px;
 }
 
 #emails-editor {
-    -moz-appearance: textfield-multiline;
-    -webkit-appearance: textarea;
-    border: 0px solid gray;
-    font: medium -moz-fixed;
-    font: -webkit-small-control;
-    height: 100px;
-	width: 420px;
+    /*-moz-appearance: textfield-multiline;*/
+    /*-webkit-appearance: textarea;*/
+    /*border: 0px solid gray;*/
+    /*font: medium -moz-fixed;*/
+    /*font: -webkit-small-control;*/
+    height: 92px;
+	/*width: 410px;*/
     overflow: auto;
-    resize: none;
+    /*resize: none;*/
 	padding: 5px;
 	background-color: #fff;
+	border-top: 1px solid #ddd;
+	padding: 7px 0 0 3px;
 }
 
 .myPrettyButton {
@@ -37,9 +62,18 @@
 	color: #F5F5F5;
 	border-width: 0;
 	height: 30px;
-	width: 150px;
-	margin-right: 15px;	
+	margin-right: 16px;	
+	border-radius: 1px;
+	font-family: MyriadProRegular;
+	letter-spacing: 0.4px;
 }
+#addEmail{
+	width: 100px;
+}
+#getEmailCount{
+	width: 120px;
+}
+
 .emailInput{
     resize: none;
     height: 17px;
@@ -50,24 +84,39 @@
     display: inline-block;
 	width: 125px;
 	margin: 0px 0px -6px 5px;
+	outline: none;
     /*position: absolute;*/
+}
+
+.emailInput2{
+	border: none;
+	outline: none;
+	margin-left: 10px;
+	letter-spacing: 0.4px;
+	font-family: MyriadProRegular;
 }
 
 .email {
 	padding: 0;
 	margin: 0;
-	display: inline-block;
+	/*display: inline-block;*/
+	display: initial;
 }
 
 
 .email > li {
 	background-color: #D8E8FF;
-    padding: 5px 10px 5px 10px;
+    padding: 2px 10px 8px 10px;
     border-radius: 20px;
-	font: medium -moz-fixed;
-    font: -webkit-small-control;
+	/*font: medium -moz-fixed;*/
+    /*font: -webkit-small-control;*/
 	margin: 0px 0px 2px 5px;
 	display: inline-block;
+	font-family: MyriadProRegular;
+	font-size: 14px;
+	height: 14px;
+	color: #373737;
+	letter-spacing: -0.1px;
 }
 
 .email span.badEmail {
@@ -79,8 +128,22 @@
 .remove {
 	font-size: 15px;
     font-weight: bold;
-	padding: 0 0px 0 5px;
+	padding: 0 0px 0 8px;
 	cursor: pointer;
 }
 
- 	
+/*
+	Ёксперементальные стили
+*/
+::-webkit-input-placeholder {
+   color: #ccc;
+}
+:-moz-placeholder { /* Firefox 18- */
+   color: #ccc;  
+}
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #ccc;  
+}
+:-ms-input-placeholder {  
+   color: #ccc;  
+}
